@@ -9,27 +9,14 @@ package accountServer;
  *         Описание курса и лицензия: https://github.com/vitaly-chibrikov/stepic_java_webserver
  */
 public class AccountServer implements AccountServerI {
-    private int usersCount;
     private int usersLimit;
 
     public AccountServer() {
-        this.usersCount = 0;
         this.usersLimit = 10;
     }
 
     public AccountServer(int usersLimit) {
-        this.usersCount = 0;
         this.usersLimit = usersLimit;
-    }
-
-    @Override
-    public void addNewUser() {
-        usersCount += 1;
-    }
-
-    @Override
-    public void removeUser() {
-        usersCount -= 1;
     }
 
     @Override
@@ -40,10 +27,5 @@ public class AccountServer implements AccountServerI {
     @Override
     public void setUsersLimit(int usersLimit) {
         this.usersLimit = usersLimit;
-    }
-
-    @Override
-    public int getUsersCount() {
-        return usersCount;
     }
 }
