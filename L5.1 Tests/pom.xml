@@ -38,6 +38,7 @@
                     <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
+                            <addClasspath>true</addClasspath>
                             <mainClass>main.Main</mainClass>
                         </manifest>
                     </archive>

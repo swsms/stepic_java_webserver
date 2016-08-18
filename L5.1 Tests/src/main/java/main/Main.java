@@ -1,4 +1,4 @@
-package example;
+package main;
 
 import accountServer.AccountServer;
 import accountServer.AccountServerController;
@@ -28,14 +28,10 @@ import java.lang.management.ManagementFactory;
  */
 public class Main {
     static final Logger logger = LogManager.getLogger(Main.class.getName());
+    static final String portString = "8080";
 
     public static void main(String[] args) throws Exception {
-        if (args.length != 1) {
-            logger.error("Use port as the first argument");
-            System.exit(1);
-        }
 
-        String portString = args[0];
         int port = Integer.valueOf(portString);
 
         logger.info("Starting at http://127.0.0.1:" + portString);
@@ -60,6 +56,7 @@ public class Main {
         server.setHandler(handlers);
 
         server.start();
+
         logger.info("Server started");
 
         server.join();
