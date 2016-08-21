@@ -12,7 +12,12 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import resourceServer.ResourceServer;
+import resourceServer.ResourceServerController;
+import resourceServer.ResourceServerControllerMBean;
+import resourceServer.ResourceServerI;
 import servlets.AdminServlet;
+import servlets.ResourceServlet;
 
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
@@ -43,9 +48,16 @@ public class Main {
         ObjectName name = new ObjectName("Admin:type=AccountServerController");
         mbs.registerMBean(serverStatistics, name);
 
+        ResourceServerI resourceServer = new ResourceServer();
+
+        ResourceServerControllerMBean serverResource = new ResourceServerController(resourceServer);
+        name = new ObjectName("Admin:type=ResourceServerController");
+        mbs.registerMBean(serverResource, name);
+
         Server server = new Server(port);
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.addServlet(new ServletHolder(new AdminServlet(accountServer)), AdminServlet.PAGE_URL);
+        context.addServlet(new ServletHolder(new ResourceServlet(resourceServer)), ResourceServlet.PAGE_URL);
 
         ResourceHandler resource_handler = new ResourceHandler();
         resource_handler.setDirectoriesListed(true);
